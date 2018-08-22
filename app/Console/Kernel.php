@@ -25,7 +25,8 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->call(function () {
-            
+            $notification = \Notification::route('mail', explode(',', env('MAIL_BOXES')));
+            $notification->notify(new \App\Notifications\AppStatus());
         })->everyFiveMinutes();
     }
 
